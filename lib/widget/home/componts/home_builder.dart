@@ -16,7 +16,8 @@ class _HomeBuilderWidgetState extends State<HomeBuilderWidget> {
   _scrollListener() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      dat.apiClientResponse.getNews();
+      // dat.apiClientResponse.getNews();
+      print('data');
     }
   }
 

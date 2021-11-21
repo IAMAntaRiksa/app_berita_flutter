@@ -16,13 +16,16 @@ class ApiClientResponse {
     ),
   )..interceptors.add(Logging());
 
-  Future<List<NewsItemResponse>?>? getNews() async {
+  Future<List<NewsItemResponse>?>? getNews(
+      {int page = 0, int pageSize = 10}) async {
     List<NewsItemResponse>? newsData;
     try {
       Response response = await _dio.get(
-        '/top-headlines?country=id&page=1?&apiKey=$APIKEY',
+        'https://newsapi.org/v2/everything?q=bitcoin=id&page=$page&apiKey=$APIKEY',
         queryParameters: {
           'apiKey': APIKEY,
+          'page': page,
+          'pageSize': pageSize,
         },
       );
 

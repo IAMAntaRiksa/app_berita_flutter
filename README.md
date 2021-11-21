@@ -1,7 +1,8 @@
 # rest_api
-
 BELAJAR REST_API API DARI https://newsapi.org/
+
 <img src="https://user-images.githubusercontent.com/32923555/142747571-b866a352-a8be-4eab-8fad-039d55e07095.png" width="270" height="500"/> 
+
 
 A new Flutter project.
 

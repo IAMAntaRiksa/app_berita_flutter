@@ -9,6 +9,4 @@ abstract class ArtikelEvent extends Equatable {
 
 class getNewsArtikelEvent extends ArtikelEvent {}
 
-class getLoadMoreEvent extends ArtikelEvent {}
-
 class getLoadMoreRefreshEvent extends ArtikelEvent {}

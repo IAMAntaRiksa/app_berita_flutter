@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rest_api/home/componts/home_builder.dart';
+import 'package:rest_api/widget/home/componts/home_builder.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({Key? key}) : super(key: key);

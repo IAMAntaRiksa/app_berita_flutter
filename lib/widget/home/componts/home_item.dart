@@ -36,7 +36,7 @@ class HomeItem extends StatelessWidget {
               width: 120,
               fit: BoxFit.cover,
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
