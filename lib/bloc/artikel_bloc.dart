@@ -9,32 +9,41 @@ part 'artikel_event.dart';
 part 'artikel_state.dart';
 
 class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
-  /// step one
   ApiClientResponse apiClientResponse = ApiClientResponse();
 
-  ArtikelBloc() : super(ArtikelInitial()) {
-    on<getNewsArtikelEvent>(_getMapData);
+  ArtikelBloc() : super(const ArtikelInitial()) {
+    on<GetNewsArtikelEvent>(_getMapData);
+    on<GetLoadMoreData>(_getLoadMoreData);
   }
   FutureOr<void> _getMapData(event, emit) async {
-    emit(getNewsArticlesLoading());
-    List<NewsItemResponse>? fetchData =
-        await apiClientResponse.getNews(page: 2);
-    if (fetchData == null) {
-      emit(getNewsArticlesError(massage: 'gagal ambil data'));
-    } else {
-      emit(getNewsArticlesLoaded(itemNewsArticles: fetchData));
+    emit(GetNewsArtikelLoading(data: state.data));
+    try {
+      List<NewsItemResponse>? fetchData =
+          await apiClientResponse.getNews(page: 1);
+      emit(GetNewsArticlesLoaded(
+          data: state.data.copyWith(itemNewsArticles: fetchData)));
+    } catch (e) {
+      emit(const GetNewsArtikelError(message: 'Gagal Ambil Data'));
+    }
+  }
 
-      /// logic loadmore perbarui
-
-      // getNewsArticlesLoaded app =
-      //     getNewsArticlesLoaded(itemNewsArticles: fetchData);
-      // fetchData = await apiClientResponse.getNews();
-
-      // emit(fetchData!.isEmpty
-      //     ? app.copyWith(hasReachedMax: true)
-      //     : getNewsArticlesLoaded(
-      //         itemNewsArticles: app.itemNewsArticles + fetchData,
-      //         hasReachedMax: false));
+  FutureOr<void> _getLoadMoreData(event, emit) async {
+    emit(GetNewsArticlesLoaded(
+        data: state.data.copyWith(isLoadMoreLoading: true)));
+    try {
+      List<NewsItemResponse>? fetchData =
+          await apiClientResponse.getNews(page: state.data.page + 1);
+      emit(
+        GetNewsArticlesLoaded(
+          data: state.data.copyWith(
+              itemNewsArticles: state.data.itemNewsArticles + fetchData!,
+              isLoadMoreLoading: false,
+              page: state.data.page + 1,
+              hasReachedMax: fetchData.length < 10),
+        ),
+      );
+    } catch (e) {
+      emit(const GetNewsArtikelError(message: 'Gagal Ambil Data'));
     }
   }
 }

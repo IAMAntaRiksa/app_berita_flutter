@@ -7,6 +7,8 @@ abstract class ArtikelEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class getNewsArtikelEvent extends ArtikelEvent {}
+class GetNewsArtikelEvent extends ArtikelEvent {}
 
-class getLoadMoreRefreshEvent extends ArtikelEvent {}
+class GetLoadMoreData extends ArtikelEvent {}
+
+class GetLoadMoreRefreshEvent extends ArtikelEvent {}

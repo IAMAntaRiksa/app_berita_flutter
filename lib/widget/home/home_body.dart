@@ -11,11 +11,7 @@ class HomeBody extends StatelessWidget {
         title: const Text('TEST CODING'),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
-      body: BodyHome(),
+      body: const HomeBuilderWidget(),
     );
   }
-}
-
-Widget BodyHome() {
-  return const HomeBuilderWidget();
 }

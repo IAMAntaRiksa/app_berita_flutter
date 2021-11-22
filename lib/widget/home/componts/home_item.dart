@@ -42,7 +42,7 @@ class HomeItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('${dataa.author}',
-                      style: TextStyle(fontWeight: FontWeight.w800)),
+                      style: const TextStyle(fontWeight: FontWeight.w800)),
                   const SizedBox(height: 14),
                   Text(
                     '${dataa.description}',

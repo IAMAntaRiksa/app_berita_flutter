@@ -1,46 +1,71 @@
 part of 'artikel_bloc.dart';
 
-abstract class ArtikelState extends Equatable {
-  const ArtikelState();
+class ArtikelState extends Equatable {
+  final ArtikelDataState data;
+  const ArtikelState({required this.data});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [data];
 }
 
-class ArtikelInitial extends ArtikelState {}
+class ArtikelInitial extends ArtikelState {
+  const ArtikelInitial()
+      : super(
+          data: const ArtikelDataState(
+            itemNewsArticles: [],
+            hasReachedMax: false,
+            page: 1,
+            isLoadMoreLoading: false,
+          ),
+        );
+}
 
-class getNewsArticlesLoading extends ArtikelState {}
+class GetNewsArtikelLoading extends ArtikelState {
+  const GetNewsArtikelLoading({required ArtikelDataState data})
+      : super(data: data);
+}
 
-class getNewsArticlesLoaded extends ArtikelState {
-  List<NewsItemResponse> itemNewsArticles;
+class GetNewsArticlesLoaded extends ArtikelState {
+  const GetNewsArticlesLoaded({required ArtikelDataState data})
+      : super(data: data);
+}
+
+class ArtikelDataState {
+  final List<NewsItemResponse> itemNewsArticles;
   final bool hasReachedMax;
+  final int page;
+  final bool isLoadMoreLoading;
 
-  getNewsArticlesLoaded({
+  const ArtikelDataState({
     required this.itemNewsArticles,
-    this.hasReachedMax = true,
+    required this.hasReachedMax,
+    required this.page,
+    required this.isLoadMoreLoading,
   });
 
-  getNewsArticlesLoaded copyWith({
-    List<NewsItemResponse>? posts,
+  ArtikelDataState copyWith({
+    List<NewsItemResponse>? itemNewsArticles,
     bool? hasReachedMax,
+    int? page,
+    bool? isLoadMoreLoading,
   }) {
-    return getNewsArticlesLoaded(
-      itemNewsArticles: posts ?? itemNewsArticles,
-      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
-    );
+    return ArtikelDataState(
+        itemNewsArticles: itemNewsArticles ?? this.itemNewsArticles,
+        hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+        page: page ?? this.page,
+        isLoadMoreLoading: isLoadMoreLoading ?? this.isLoadMoreLoading);
   }
 
-  @override
-  List<Object> get props => [itemNewsArticles, hasReachedMax];
+  List<Object> get props =>
+      [isLoadMoreLoading, hasReachedMax, page, itemNewsArticles];
 }
 
-class getNewsArticlesError extends ArtikelState {
-  final String massage;
+class GetNewsArtikelError {
+  final String message;
 
-  getNewsArticlesError({
-    required this.massage,
+  const GetNewsArtikelError({
+    required this.message,
   });
 
-  @override
-  List<Object> get props => [massage];
+  List<Object> get props => [message];
 }
